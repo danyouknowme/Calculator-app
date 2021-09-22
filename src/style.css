@@ -12,6 +12,10 @@
   --key2-shadow: hsl(28, 16%, 65%);
   --text: hsl(221, 14%, 31%);
   --button-text: #fff;
+  --title-text: #fff;
+  --button-white: #fff;
+  --switch-position: 5px;
+  --switch-color: hsl(6, 63%, 50%);
 }
 
 [data-theme="second-theme"] {
@@ -26,6 +30,10 @@
   --key2-shadow: hsl(35, 11%, 61%);
   --text: hsl(60, 10%, 19%);
   --button-text: hsl(0, 0, 100%);
+  --title-text: hsl(60, 10%, 19%);
+  --button-white: #fff;
+  --switch-position: 30px;
+  --switch-color: hsl(25, 98%, 40%);
 }
 
 [data-theme="third-theme"] {
@@ -40,6 +48,10 @@
   --key2-shadow: hsl(290, 70%, 36%);
   --text: hsl(52, 100%, 62%);
   --button-text: hsl(198, 20%, 13%);
+  --title-text: hsl(52, 100%, 62%);
+  --button-white: #fff;
+  --switch-position: 55px;
+  --switch-color: hsl(176, 100%, 44%);
 }
 
 body {
@@ -70,7 +82,7 @@ body {
 .text {
   font-size: 24px;
   font-weight: 700;
-  color: var(--button-text);
+  color: var(--title-text);
 }
 
 .theme {
@@ -79,7 +91,7 @@ body {
 }
 
 .theme-text {
-  color: var(--button-text);
+  color: var(--title-text);
   font-size: 12px;
   font-weight: 600;
   margin: 0 30px 5px 0;
@@ -88,13 +100,13 @@ body {
 .choice-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
 .number {
-  letter-spacing: 6px;
-  color: var(--button-text);
+  letter-spacing: 7.5px;
+  color: var(--title-text);
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -108,15 +120,17 @@ body {
   background-color: var(--toggle-background);
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .slider::before {
-  background: hsl(6, 63%, 50%);
+  background: var(--switch-color);
   content: "";
   height: 15px;
   transition: 0.4s;
   width: 15px;
-  margin-left: 4px;
+  position: absolute;
+  margin-left: var(--switch-position);
 }
 
 .slider.round {
@@ -125,6 +139,16 @@ body {
 
 .slider.round::before {
   border-radius: 50%;
+}
+
+.theme-btn {
+  height: 100%;
+  width: calc(100% / 3);
+  background-color: var(--toggle-background);
+  border-radius:34px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 /* Display Screen */
@@ -142,7 +166,7 @@ body {
 h1 {
   padding-right: 30px;
   font-size: 42px;
-  color: var(--button-text);
+  color: var(--title-text);
 }
 
 /* Button */
@@ -158,7 +182,7 @@ h1 {
   padding: 25px;
 }
 
-button {
+.button {
   min-height: 50px;
   font-size: 32px;
   border: none;
@@ -173,12 +197,21 @@ button {
   color: var(--text);
 }
 
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0px 5px 0px 0px var(--key2-background);
+}
+
 .reset-button {
   grid-column: 1 / span 2;
   background-color: var(--key-background);
   box-shadow: 0px 5px 0px 0px var(--key2-shadow);
   -webkit-box-shadow: 0px 5px 0px 0px var(--key-shadow);
   -moz-box-shadow: 0px 5px 0px 0px var(--key-shadow);
+}
+
+.reset-button:active {
+  box-shadow: 0px 5px 0px 0px var(--key-background);
 }
 
 .equal-button {
@@ -189,6 +222,10 @@ button {
   -moz-box-shadow: 0px 5px 0px 0px var(--key--toggle-shadow);
 }
 
+.equal-button:active {
+  box-shadow: 0px 5px 0px 0px var(--key-toggle-background);
+}
+
 .del-button {
   background-color: var(--key-background);
   box-shadow: 0px 5px 0px 0px var(--key2-shadow);
@@ -196,9 +233,13 @@ button {
   -moz-box-shadow: 0px 5px 0px 0px var(--key-shadow);
 }
 
+.del-button:active {
+  box-shadow: 0px 5px 0px 0px var(--key-background);
+}
+
 .another-button {
   font-size: 20px;
-  color: var(--button-text);
+  color: var(--button-white);
 }
 
 /* Tablet Size */
