@@ -1,4 +1,6 @@
 const btn = Array.from(document.querySelectorAll(".theme-btn"));
+const display = document.querySelector("h1");
+const clearBtn = document.getElementById("clear-btn");
 
 const switchTheme = (index) => {
   switch (index) {
@@ -14,10 +16,14 @@ const switchTheme = (index) => {
   }
 }
 
+const resetAll = () => {
+  display.innerHTML = '0';
+}
+
 btn.map((item, index) => {
   item.addEventListener("click", () => {
-    console.log(item, index);
     switchTheme(index);
-    console.log(item, index);
   });
 });
+
+clearBtn.addEventListener("click", resetAll);
