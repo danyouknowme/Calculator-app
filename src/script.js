@@ -15,20 +15,26 @@ let firstVal = 0;
 let operatorValue = "";
 let awaitNextVal = false;
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-
 const sendNumberValue = (number) => {
+  // Replace current display value if first value is enterd
   if (awaitNextVal) {
     display.textContent = number;
     awaitNextVal = false;
   } else {
+    // If current display value is 0, replace it, if not add number
     const displayValue = display.textContent;
     display.textContent = displayValue === "0" ? number : displayValue + number;
+    // Add comma to the number
     const displayVal = display.textContent.split(",").join("");
     display.textContent = (Math.round(displayVal * 100) / 100).toLocaleString()
   }
+}
+
+const addDecimal = () => {
+  // If operator press, don't add decimal
+  if (awaitNextVal) return;
+  // If no decimal add 1
+  !display.textContent.includes(".") && (display.textContent = `${display.textContent}.`);
 }
 
 const switchTheme = (index) => {
@@ -59,7 +65,7 @@ button.forEach(btn => {
   if (btn.classList.contains("operator")) {
     btn.addEventListener("click", () => console.log(btn, "operator"));
   } else if (btn.classList.contains("decimal")) {
-    btn.addEventListener("click", () => console.log(btn, "decimal"));
+    btn.addEventListener("click", () => addDecimal());
   } else if (btn.classList.contains("del-button")) {
     btn.addEventListener("click", () => console.log(btn, "del-button"));
   } else {
