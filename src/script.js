@@ -37,6 +37,16 @@ const addDecimal = () => {
   !display.textContent.includes(".") && (display.textContent = `${display.textContent}.`);
 }
 
+const deleteLastDigit = () => {
+  const number = display.textContent.split(",").join("").split("");
+  const length = number.length;
+  const value = [];
+  for (let i=0; i<length-1; i++) {
+    value.push(number[i]);
+  }
+  display.textContent = (Math.round(value.join("") * 100) / 100).toLocaleString();
+}
+
 const switchTheme = (index) => {
   switch (index) {
     case 0:
@@ -67,7 +77,7 @@ button.forEach(btn => {
   } else if (btn.classList.contains("decimal")) {
     btn.addEventListener("click", () => addDecimal());
   } else if (btn.classList.contains("del-button")) {
-    btn.addEventListener("click", () => console.log(btn, "del-button"));
+    btn.addEventListener("click", () => deleteLastDigit());
   } else {
     btn.addEventListener("click", () => sendNumberValue(btn.value));
   }
