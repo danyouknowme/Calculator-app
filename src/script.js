@@ -26,7 +26,7 @@ const sendNumberValue = (number) => {
     display.textContent = displayValue === "0" ? number : displayValue + number;
     // Add comma to the number
     const displayVal = display.textContent.split(",").join("");
-    display.textContent = (Math.round(displayVal * 100) / 100).toLocaleString()
+    display.textContent = formatNumber(displayVal);
   }
 }
 
@@ -44,7 +44,7 @@ const deleteLastDigit = () => {
   for (let i=0; i<length-1; i++) {
     value.push(number[i]);
   }
-  display.textContent = (Math.round(value.join("") * 100) / 100).toLocaleString();
+  display.textContent = formatNumber(value.join(""));
 }
 
 const useOperator = (operator) => {
@@ -59,13 +59,18 @@ const useOperator = (operator) => {
     firstVal = currentValue;
   } else {
     const calculation = calculate[operatorValue](firstVal, currentValue);
-    display.textContent = (Math.round(calculation * 100) / 100).toLocaleString()
+    display.textContent = formatNumber(calculation);
     firstVal = calculation;
   }
   // Ready for next value, store operator
   awaitNextVal = true;
   operatorValue = operator;
 }
+
+const formatNumber = (number) => {
+  return (Math.round(number * 100) / 100).toLocaleString();
+}
+
 
 const switchTheme = (index) => {
   switch (index) {
@@ -83,6 +88,9 @@ const switchTheme = (index) => {
 
 const resetAll = () => {
   display.textContent = '0';
+  firstVal = 0;
+  operatorValue = '';
+  awaitNextVal = false;
 }
 
 themeBtn.map((item, index) => {
