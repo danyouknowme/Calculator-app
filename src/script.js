@@ -8,7 +8,7 @@ const calculate = {
   "-": (num1, num2) => num1 - num2,
   "*": (num1, num2) => num1 * num2,
   "/": (num1, num2) => num1 / num2,
-  "=": (num1, num2) => num1,
+  "=": (num1, num2) => num2,
 }
 
 let firstVal = 0;
@@ -47,6 +47,26 @@ const deleteLastDigit = () => {
   display.textContent = (Math.round(value.join("") * 100) / 100).toLocaleString();
 }
 
+const useOperator = (operator) => {
+  const currentValue = Number(display.textContent.split(",").join("").split("").join(""));
+  // Prevent multiple operators
+  if (operatorValue && awaitNextVal) {
+    operatorValue = operator;
+    return;
+  }
+  // Assign firstValue if no value
+  if (!firstVal) {
+    firstVal = currentValue;
+  } else {
+    const calculation = calculate[operatorValue](firstVal, currentValue);
+    display.textContent = (Math.round(calculation * 100) / 100).toLocaleString()
+    firstVal = calculation;
+  }
+  // Ready for next value, store operator
+  awaitNextVal = true;
+  operatorValue = operator;
+}
+
 const switchTheme = (index) => {
   switch (index) {
     case 0:
@@ -73,7 +93,7 @@ themeBtn.map((item, index) => {
 
 button.forEach(btn => {
   if (btn.classList.contains("operator")) {
-    btn.addEventListener("click", () => console.log(btn, "operator"));
+    btn.addEventListener("click", () => useOperator(btn.value));
   } else if (btn.classList.contains("decimal")) {
     btn.addEventListener("click", () => addDecimal());
   } else if (btn.classList.contains("del-button")) {
